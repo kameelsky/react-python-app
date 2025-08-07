@@ -1,0 +1,10 @@
+{
+  "name": "react-app-server",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "server-build": "bash scripts/build.sh",
+    "server-dev": "bash scripts/dev.sh",
+    "server-start": "bash scripts/start.sh"
+  }
+}
