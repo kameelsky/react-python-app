@@ -1,6 +1,6 @@
 import { type NextRequest } from "next/server";
 import { NextResponse } from "next/server";
-import { decryptJWT } from "@app/lib/encryption";
+import { decryptJWT } from "@app/lib/serverActions/encryption";
 
 const nextPaths: string[] = ["/_next", "/favicon.ico"];
 const publicRoutes: string[] = ["/home", "/unauthorized"];

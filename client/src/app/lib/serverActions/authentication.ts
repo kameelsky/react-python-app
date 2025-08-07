@@ -1,11 +1,11 @@
 "use server";
 
 import { AuthData, ServerResponse } from "@app/lib/data/types";
-import { decryptJWT, encryptJWT } from "@app/lib/encryption";
+import { decryptJWT, encryptJWT } from "@app/lib/serverActions/encryption";
 import logger from "@app/lib/logger";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { POST } from "@app/lib/serverActions/requests";
+import { POST } from "@app/lib/requests";
 
 interface LoginData {
     user_login: string;

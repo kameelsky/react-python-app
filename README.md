@@ -52,16 +52,16 @@ Set environment variables in the `.env` file in the application root:
 # KEYS
 SECRET_KEY='YourApp_secret#key!'
 
-# SERVER
-CLIENT_PORT='9000'
-SERVER_PORT='9001'
-
-# PRODUCTION
-PRODUCTION='False' # Only for production
-PRODUCTION_SERVER_IP='10.20.1.194'
-
 # ENVIRONMENTS
 CONDA_ENV='react_app'
+
+# PORTS
+CLIENT_PORT='9000' # SERVER
+NEXT_PUBLIC_SERVER_PORT='9001' # CLIENT # SERVER
+
+# PRODUCTION
+NEXT_PUBLIC_PRODUCTION='False' # CLIENT # SERVER
+NEXT_PUBLIC_PRODUCTION_SERVER_IP='10.20.1.194' # CLIENT # SERVER
 ```
 
 - ***PRODUCTION_SERVER*** should be set to the IP address of the machine within your local network.

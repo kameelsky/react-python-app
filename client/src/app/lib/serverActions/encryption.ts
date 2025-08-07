@@ -1,3 +1,5 @@
+"use server";
+
 import { AuthData } from "@app/lib/data/types";
 import { SignJWT, jwtVerify } from "jose";
 

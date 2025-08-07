@@ -2,7 +2,7 @@
 
 import Button from "@app/lib/components/Button";
 import { ServerResponse } from "@app/lib/data/types";
-import { POST } from "@app/lib/serverActions/requests";
+import { POST } from "@app/lib/requests";
 import { printSuccess } from "@app/lib/serverActions/terminal";
 import { Modal, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -29,7 +29,7 @@ interface RegisteredUserResponseBody {
     };
 }
 
-export default function RegistrationLink() {
+export default function RegistrationLink(): React.ReactElement {
     const [isOpened, modalHandlers] = useDisclosure(false);
     const [notificationApi, notificationContextHolder] = notification.useNotification();
 

@@ -1,12 +1,16 @@
 from api.tools.functions import send_email
-from api.tools.models import EmailRequest
-from fastapi import APIRouter, Body, Depends
+from api.tools.models import JWT, EmailRequest
+from fastapi import APIRouter, Body, Depends, HTTPException, status
 from functions.encryption import authentication
 
 router = APIRouter(dependencies=[Depends(authentication)])
 
-@router.post("/send_email")
-async def bot_send_email(body: EmailRequest = Body(default=None)):
+@router.post("/send-email")
+def send_email(body: EmailRequest = Body(default=None), token: JWT = Depends(authentication)):
+
+    token = JWT(**token)
+    if token.role != "admin":
+        raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="You need admin priviliges.")
 
     send_email(subject=body.subject,
                 recipients=body.recipients,
@@ -15,6 +19,6 @@ async def bot_send_email(body: EmailRequest = Body(default=None)):
     
     return "Email was sent successfully."
 
-@router.get("/test")
+@router.get("/jwt-test")
 def test(token = Depends(authentication)):
     return token

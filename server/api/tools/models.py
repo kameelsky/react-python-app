@@ -5,3 +5,10 @@ class EmailRequest(BaseModel):
     recipients: list[str]
     message_html: str
     bcc: list[str] = Field(default_factory=list[str])
+
+class JWT(BaseModel):
+    name: str
+    role: str
+    login: str
+    exp: int
+    iat: int
