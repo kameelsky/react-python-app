@@ -1,7 +1,5 @@
-import os
-
 from api.auth.models import AuthRequest, AuthResponse, RegisterRequest
-from data import ENGINE, ReactApp, Users, check_password, AuthorizationError
+from data import ENGINE, ReactApp, Users, check_access, AuthorizationError
 from fastapi import APIRouter, Body, HTTPException, Query, status
 from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlmodel import Session
@@ -12,7 +10,7 @@ router = APIRouter()
 def validate_user(developer: bool = Query(default=False), body: AuthRequest = Body()):
     if developer == True: return {"name": "Developer", "role": "admin", "login": "DEVE"}
     try:
-        name, role = check_password(user_login=body.user_login, encrypted_provided_password=body.provided_password)
+        name, role = check_access(user_login=body.user_login, encrypted_provided_password=body.provided_password)
         return {"name": name, "role": role, "login": body.user_login}
     except IntegrityError: raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="A resource conflict occurred.")
     except OperationalError: raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="No database found. Contact IT support.")

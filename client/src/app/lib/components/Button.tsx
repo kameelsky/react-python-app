@@ -9,7 +9,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
         ripple?: boolean;
     };
 
-export default function Button({ children, ripple = true, onClick, ...otherProps }: ButtonProps) {
+export default function Button({ children, ripple = true, onClick, ...otherProps }: ButtonProps): React.ReactNode {
     const buttonRef = useRef<HTMLButtonElement>(null);
 
     const handleClick = (e: MouseEvent<HTMLButtonElement>) => {

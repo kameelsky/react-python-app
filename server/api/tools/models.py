@@ -10,5 +10,3 @@ class JWT(BaseModel):
     name: str
     role: str
     login: str
-    exp: int
-    iat: int

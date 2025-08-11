@@ -2,12 +2,14 @@
 
 import Button from "@app/lib/components/Button";
 import { GET } from "@app/lib/requests";
-import { logOut } from "@app/lib/serverActions/authentication";
+import { cookieDuration, logOut } from "@app/lib/serverActions/authentication";
 
-export default function HomePage() {
+export default function HomePage(): React.ReactNode {
     const clickTest = async () => {
         const data = await GET("/tools/jwt-test");
+        const session = await cookieDuration();
         console.log(data);
+        console.log(session / 60);
     };
 
     return (

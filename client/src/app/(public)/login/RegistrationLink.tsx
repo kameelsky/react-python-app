@@ -63,7 +63,8 @@ export default function RegistrationLink(): React.ReactElement {
             message: responseData.success ? "Registration completed!" : "Registration failed.",
             description: responseData.success ? "You have succesfully registered your account." : `${responseData.message}`,
             placement: "bottom",
-            duration: responseData.success ? 2 : 5,
+            // duration: responseData.success ? 2 : 5,
+            duration: responseData.success ? 0.5 : 5,
             onClose: responseData.success ? modalHandlers.close : undefined,
         });
         if (responseData.success) {

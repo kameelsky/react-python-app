@@ -1,6 +1,6 @@
 import SessionRefresher from "@app/lib/components/SessionRefresh";
 
-export default function AuthLayout({ children }: { children: Readonly<React.ReactNode> }): React.ReactElement {
+export default function AuthLayout({ children }: { children: Readonly<React.ReactNode> }): React.ReactNode {
     return (
         <main>
             {children}

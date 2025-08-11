@@ -1,11 +1,5 @@
 import axios, { type AxiosRequestConfig, Method, AxiosInstance } from "axios";
-
-type ServerResponse<ResponseData = string | object> = {
-    success: boolean;
-    status_code: number;
-    message?: string;
-    body?: ResponseData;
-};
+import { type ServerResponse } from "@app/lib/data/types";
 
 const PRODUCTION = process.env.NEXT_PUBLIC_PRODUCTION;
 const PRODUCTION_SERVER_IP = process.env.NEXT_PUBLIC_PRODUCTION_SERVER_IP;

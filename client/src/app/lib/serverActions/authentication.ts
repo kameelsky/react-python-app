@@ -1,15 +1,36 @@
 "use server";
 
 import { AuthData, ServerResponse } from "@app/lib/data/types";
-import { decryptJWT, encryptJWT } from "@app/lib/serverActions/encryption";
 import logger from "@app/lib/logger";
+import { POST } from "@app/lib/requests";
+import { decryptJWT, encryptJWT } from "@app/lib/serverActions/encryption";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
-import { POST } from "@app/lib/requests";
 
 interface LoginData {
     user_login: string;
     provided_password: string;
+}
+
+export async function createSessionCookie(token: string): Promise<void> {
+    const cookieStorage = await cookies();
+    const hours = 0.5; // hours
+    const cookieLifeSpan = hours * 60 * 60 * 1000; // ms
+    const expires = new Date(Date.now() + cookieLifeSpan); // UTC
+    cookieStorage.set("session", token, {
+        secure: false,
+        httpOnly: true,
+        expires: expires,
+    });
+}
+
+export async function cookieDuration(): Promise<number> {
+    const cookieStorage = await cookies();
+    const token = cookieStorage.get("session")?.value || "";
+    const payload = await decryptJWT(token);
+    const exp = payload!.exp;
+    const diff = exp - Math.floor(Date.now() / 1000);
+    return diff; // Time in seconds
 }
 
 export async function sessionAuth(formData: LoginData, developer: boolean = false): Promise<ServerResponse<AuthData | null>> {
@@ -29,19 +50,7 @@ export async function sessionAuth(formData: LoginData, developer: boolean = fals
 
     if (response.success) {
         const token = await encryptJWT(response.body as AuthData);
-        const cookieStorage = await cookies();
-
-        const hours = 1; // hours
-        const cookieLifeSpan = hours * 3_600; // seconds
-        // const cookieLifeSpan = 10; // seconds
-        const expires = new Date(Date.now() + cookieLifeSpan * 1000); // current date + miliseconds
-
-        cookieStorage.set("session", token, {
-            secure: false,
-            httpOnly: true,
-            expires: expires,
-        });
-
+        await createSessionCookie(token);
         logger.info(`${response.body?.name}(${response.body?.login}) logged in as ${response.body?.role}.`);
     }
 
@@ -58,4 +67,12 @@ export async function sessionDeauth(): Promise<void> {
 export async function logOut(): Promise<void> {
     await sessionDeauth();
     redirect("/login");
+}
+
+export async function sessionRefresh(): Promise<void> {
+    const cookieStorage = await cookies();
+    const token = cookieStorage.get("session")?.value || "";
+    const payload = await decryptJWT(token);
+    const newToken = await encryptJWT(payload as AuthData);
+    await createSessionCookie(newToken);
 }

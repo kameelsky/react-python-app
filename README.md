@@ -26,6 +26,9 @@ This application is intended to run on **Nginx** as a reverse proxy server. The 
 [![npm](https://img.shields.io/badge/npm-11-CB3837?logo=npm&logoColor=white)](https://www.npmjs.com/)
 [![PM2](https://img.shields.io/badge/PM2-2B037A?logo=pm2&logoColor=white)](https://pm2.keymetrics.io/)
 [![SQLite](https://img.shields.io/badge/SQLite-003B57?logo=sqlite&logoColor=white)](https://www.sqlite.org/)
+[![MySQL](https://img.shields.io/badge/MySQL-4479A1?logo=mysql&logoColor=white)](https://www.mysql.com/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker&logoColor=white)](https://www.docker.com/)
+
 
 Before you begin, ensure the following dependencies are installed on your server:
 
@@ -34,6 +37,7 @@ Before you begin, ensure the following dependencies are installed on your server
 - Node.js and npm
 - pm2 (Process Manager 2 installed globally from npm)
 - SQLite3
+- Docker server for MySQL
 
 Python and all required backend dependencies will be installed via the provided Miniconda setup script in a separate virtual environment.
 
@@ -70,7 +74,53 @@ NEXT_PUBLIC_PRODUCTION_SERVER_IP='10.20.1.194' # CLIENT # SERVER
 
 ## Database
 
-The application must have a connection to a database that contains two tables: `users` and `reactapp`. Database by default is created in the [server](./server/) folder and configured using [ORM](server/data/__init__.py) approach.
+The application must have a connection to MySQL database server. Database is configured using [ORM](server/data/__init__.py) approach.
+
+### MySQL server setup
+
+```shell
+# Downloading the image
+docker pull mysql/mysql-server
+
+# Builing the container
+docker run --name mysql -e MYSQL_ROOT_PASSWORD=rootpasswd -p 3306:3306 -v mysql_dane:/var/lib/mysql -d mysql/mysql-server:latest
+
+# Preferrably add a user and grant the access to the database.
+docker exec -it mysql /bin/bash
+
+# In the container
+mysql -u root -p
+mysql> CREATE DATABASE applications;
+mysql> CREATE USER 'app_user'@'%' IDENTIFIED BY 'apppasswd';
+mysql> GRANT ALL PRIVILEGES ON applications.* TO 'app_user'@'%';
+mysql> FLUSH PRIVILEGES;
+
+# Check if only the user you have created has access to the database outside the localhost:
+mysql> SELECT User, Host FROM mysql.user;
++------------------+-----------+
+| User             | Host      |
++------------------+-----------+
+| app_user         | %         |
+| healthchecker    | localhost |
+| mysql.infoschema | localhost |
+| mysql.session    | localhost |
+| mysql.sys        | localhost |
+| root             | localhost |
++------------------+-----------+
+
+# Check databases
+mysql> SHOW DATABASES;
++--------------------+
+| Database           |
++--------------------+
+| applications       |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sys                |
++--------------------+
+
+```
 
 ## Build
 

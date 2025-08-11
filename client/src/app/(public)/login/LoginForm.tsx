@@ -33,8 +33,7 @@ export default function LoginForm() {
 
     useEffect(() => {
         if (searchParams.get("msg") === "login required") notificationApi.open({ type: "info", message: "Login required", description: "You need to login first.", placement: "top" });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [searchParams]);
+    }, [searchParams, notificationApi]);
 
     useEffect(() => {
         inputRef.current?.focus();

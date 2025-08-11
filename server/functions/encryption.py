@@ -1,5 +1,5 @@
-import datetime
 import os
+from datetime import datetime, timedelta
 from typing import Optional
 
 import jwt
@@ -16,9 +16,13 @@ def decryptJWT(token: str) -> Optional[dict]:
     except jwt.exceptions.ExpiredSignatureError: raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired")
 
 def encryptJWT(name: str, role: str, login: str) -> str:
-    expiration = datetime.datetime.now(datetime.timezone.utc) + datetime.timedelta(hours=1)
-    now = datetime.datetime.now(datetime.timezone.utc)
-    payload = {"name": name, "role": role, "login": login, "iat": now, "exp": expiration}
+    payload = {
+        "name": name,
+        "role": role,
+        "login": login,
+        "iat": int(datetime.now().timestamp()),
+        "exp": int((datetime.now() + timedelta(minutes=30)).timestamp())
+    }
     headers = {"alg": ALGORITHM}
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM, headers=headers)
 

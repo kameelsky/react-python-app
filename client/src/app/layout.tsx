@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default function RootLayout({ children }: { children: Readonly<React.ReactNode> }): React.ReactElement {
+export default function RootLayout({ children }: { children: Readonly<React.ReactNode> }): React.ReactNode {
     return (
         <html lang="en" {...mantineHtmlProps}>
             <head>
