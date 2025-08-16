@@ -44,7 +44,7 @@ export async function sessionAuth(formData: LoginData, developer: boolean = fals
             success: true,
             status_code: 200,
             message: "Logged in in developer mode.",
-            body: { name: "Developer", role: "admin", login: "DEVE" },
+            body: { id: 0, name: "Developer", role: "admin", login: "DEVE" },
         };
     }
 
