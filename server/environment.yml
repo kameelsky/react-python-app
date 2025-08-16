@@ -126,7 +126,7 @@ dependencies:
   - pillow=11.3.0=py312h80c1187_0
   - pip=25.2=pyh8b19718_0
   - pixman=0.46.4=h537e5f6_0
-  - plotly=6.2.0=pyhd8ed1ab_0
+  - plotly=6.3.0=pyhd8ed1ab_0
   - pthread-stubs=0.4=hb9d3cd8_1002
   - pycparser=2.22=pyh29332c3_1
   - pydantic=2.11.7=pyh3cfb1c2_0

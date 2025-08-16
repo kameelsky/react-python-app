@@ -5,6 +5,7 @@ class AuthRequest(BaseModel):
     provided_password: str
 
 class AuthResponse(BaseModel):
+    ID: int
     name: str
     role: str
     login: str

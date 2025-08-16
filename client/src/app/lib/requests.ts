@@ -19,7 +19,7 @@ async function request(method: Method, endpoint: string, data: object = {}, conf
                 success: true,
                 status_code: response.status,
                 body: response.data,
-            } as ServerResponse<string | object>;
+            } as ServerResponse<string | object | Blob>;
         })
         .catch((error) => {
             return {

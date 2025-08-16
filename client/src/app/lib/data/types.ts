@@ -1,4 +1,5 @@
 export type AuthData = {
+    id: number;
     name: string;
     role: string;
     login: string;
@@ -9,7 +10,7 @@ export type JWT = AuthData & {
     exp: number;
 };
 
-export type ServerResponse<ResponseData = string | object> = {
+export type ServerResponse<ResponseData = string | object | Blob> = {
     success: boolean;
     status_code: number;
     message?: string;

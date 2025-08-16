@@ -53,11 +53,11 @@ try:
 except OperationalError as error: logger.error(error)
 
 # FUNCTIONS
-def check_access(user_login: str, encrypted_provided_password: str) -> Optional[Tuple[str, str]]:
+def check_access(user_login: str, encrypted_provided_password: str) -> Optional[Tuple[int, str, str]]:
     with Session(ENGINE) as session:
         id = session.exec(select(Users.ID).where(Users.Login == user_login)).first()
         if id is None: raise AuthorizationError("You are not found in the database. Please register.") 
         user = session.exec(select(Users).where(Users.ID == id).join(Users.react_app)).first()
         if user is None: raise AuthorizationError("You have no access to the application. Contact administrators to grant the access.")
         if user.Password != encrypted_provided_password: raise AuthorizationError("Incorrect password.")
-        return user.Name, user.react_app.Role
+        return user.ID, user.Name, user.react_app.Role

@@ -2,7 +2,7 @@
 
 import Button from "@app/lib/components/Button";
 import { ServerResponse } from "@app/lib/data/types";
-import { POST } from "@app/lib/requests";
+import { PUT } from "@app/lib/requests";
 import { printSuccess } from "@app/lib/serverActions/terminal";
 import { Modal, PasswordInput, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
@@ -57,7 +57,7 @@ export default function RegistrationLink(): React.ReactElement {
 
     const handleSubmit = async (formData: typeof form.values) => {
         const userData: RegisterData = { ...formData, user_password: CryptoJS.MD5(formData.user_password).toString() };
-        const responseData = (await POST("/auth/register", userData)) as ServerResponse<RegisteredUserResponseBody>;
+        const responseData = (await PUT("/auth/register", userData)) as ServerResponse<RegisteredUserResponseBody>;
         notificationApi.open({
             type: responseData.success ? "success" : "error",
             message: responseData.success ? "Registration completed!" : "Registration failed.",

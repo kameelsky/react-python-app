@@ -22,3 +22,37 @@ def send_email(body: EmailRequest = Body(default=None), token: JWT = Depends(aut
 @router.get("/jwt-test")
 def test(token = Depends(authentication)):
     return token
+
+
+
+from fastapi.responses import StreamingResponse
+from pydantic import BaseModel
+import matplotlib.pyplot as plt
+import matplotlib
+matplotlib.use("Agg")
+import io
+
+class ChartData(BaseModel):
+    x: list
+    y: list
+    title: str
+
+@router.post("/chart")
+def generate_chart(data: ChartData = Body()):
+    # Create plot
+    fig, ax = plt.subplots()
+    ax.plot(data.x, data.y, marker='o')
+    ax.set_title(data.title)
+    ax.set_xlabel("X Axis")
+    ax.set_ylabel("Y Axis")
+    
+    stream = io.BytesIO()
+    plt.savefig(stream, format="png")
+    stream.seek(0)
+    plt.close(fig)
+
+    return StreamingResponse(
+        stream,
+        media_type="image/png",
+        headers={"Content-Disposition": "attachment; filename=chart.png"}
+    )
