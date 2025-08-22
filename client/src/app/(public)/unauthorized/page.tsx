@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export default function AcessNotGrantedPage() {
+export default function AcessNotGrantedPage(): React.ReactNode {
     return (
         <div className="flex flex-col items-center justify-center h-screen w-screen">
             <h1 className="font-extrabold text-5xl mb-10">Access not granted</h1>

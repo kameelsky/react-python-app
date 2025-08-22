@@ -29,7 +29,7 @@ interface RegisteredUserResponseBody {
     };
 }
 
-export default function RegistrationLink(): React.ReactElement {
+export default function RegistrationLink(): React.ReactNode {
     const [isOpened, modalHandlers] = useDisclosure(false);
     const [notificationApi, notificationContextHolder] = notification.useNotification();
 

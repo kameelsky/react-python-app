@@ -5,7 +5,7 @@ import LoginForm from "./LoginForm";
 import "./loginform.css";
 import RegistrationLink from "./RegistrationLink";
 
-export default function LoginPage(): React.ReactElement {
+export default function LoginPage(): React.ReactNode {
     return (
         <div className="login-page">
             <main className="login-panel">
