@@ -1,1 +1,11 @@
 @import "tailwind-preset-mantine";
+
+:root {
+    --background-color: rgba(134, 158, 207, 0.6);
+    --windows-color: rgba(255, 255, 255, 0.1);
+    --windows-filter: saturate(75%) blur(1rem)
+}
+
+* {
+  box-sizing: border-box;
+}

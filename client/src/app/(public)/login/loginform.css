@@ -1,18 +1,15 @@
 :root {
     --login-panel-radius: 2rem;
-    --glass-grey: rgba(170, 185, 210, 0.6);
-    --windows-color: rgba(255, 255, 255, 0.1);
-    --windows-filter: blur(1em) saturate(70%);
 }
 
 .login-page {
     height: 100vh;
     width: 100vw;
-background:
-    radial-gradient(40rem 40rem at 20% 20%, var(--glass-grey), transparent 80%),
-    radial-gradient(35rem 35rem at 80% 25%, var(--glass-grey), transparent 85%),
-    radial-gradient(30rem 30rem at 50% 85%, var(--glass-grey), transparent 90%),
-    whitesmoke;
+    background:
+        radial-gradient(40rem 40rem at 20% 20%, var(--background-color), transparent 80%),
+        radial-gradient(35rem 35rem at 80% 25%, var(--background-color), transparent 85%),
+        radial-gradient(30rem 30rem at 50% 85%, var(--background-color), transparent 90%),
+        whitesmoke;
     display: flex;
     align-items: center;
     justify-content: center
@@ -24,7 +21,7 @@ background:
     background-color: var(--windows-color);
     border-radius: var(--login-panel-radius);
     border: 0.15rem solid white;
-    box-shadow: 0.9rem 0.9rem 0.9rem rgba(0, 0, 0,  0.2), -0.7rem -0.1rem 1rem rgb(255, 255, 255, 0.9);
+    box-shadow: 0.9rem 0.9rem 0.9rem rgba(0, 0, 0,  0.2), -0.7rem -0.1rem 1rem rgb(255, 255, 255, 0.5);
     backdrop-filter: var(--windows-filter)
 }
 
@@ -34,10 +31,11 @@ background:
     align-items: center;
     justify-content: center;
     height: 20%;
+    background: radial-gradient(30rem 30rem at 50% 50%, black, transparent 90%);
     background-color: #f9f9f9;
     border-top-left-radius: var(--login-panel-radius);
     border-top-right-radius: var(--login-panel-radius);
-    border-bottom: solid 0.1rem #e1e1e1;
+    border-bottom: solid 0.1rem white
 }
 
 .login-form {
@@ -54,4 +52,25 @@ background:
     align-items: center;
     justify-content: center;
     height: 10%;
+}
+
+.neon {
+  font-size: 1.5rem;
+  animation: flicker 3s infinite;
+  color: #fff;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 0.1em #fff,
+      0 0 0.5em #fff,
+      0 0 1em #0fa,
+      0 0 2em #0fa,
+      0 0 5em #0fa;
+  }
+
+  20%, 22%, 24%, 55% {
+    text-shadow: none;
+  }
 }

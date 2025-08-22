@@ -75,7 +75,7 @@ export default function RegistrationLink(): React.ReactNode {
 
     return (
         <>
-            <p onClick={modalHandlers.open} className="hover:text-blue-700 underline cursor-pointer">
+            <p onClick={modalHandlers.open} className="hover:text-indigo-700 underline cursor-pointer">
                 Create an account
             </p>
             <Modal opened={isOpened} onClose={modalHandlers.close} closeOnClickOutside={false} title="Register a new account">

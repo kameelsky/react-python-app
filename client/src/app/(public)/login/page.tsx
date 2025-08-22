@@ -10,7 +10,7 @@ export default function LoginPage(): React.ReactNode {
         <div className="login-page">
             <main className="login-panel">
                 <header className="login-header">
-                    <h1 className="text-[1.5rem] font-bold">My App</h1>
+                    <h1 className="text-[1.5rem] font-bold neon">My App</h1>
                 </header>
 
                 <Stack justify="center" className="login-form">
