@@ -6,9 +6,9 @@
     height: 100vh;
     width: 100vw;
     background:
-        radial-gradient(40rem 40rem at 20% 20%, var(--background-color), transparent 80%),
-        radial-gradient(35rem 35rem at 80% 25%, var(--background-color), transparent 85%),
-        radial-gradient(30rem 30rem at 50% 85%, var(--background-color), transparent 90%),
+        radial-gradient(40rem 40rem at 20% 20%, var(--background-color1), transparent 80%),
+        radial-gradient(35rem 35rem at 80% 25%, var(--background-color2), transparent 85%),
+        radial-gradient(30rem 30rem at 50% 85%, var(--background-color3), transparent 90%),
         whitesmoke;
     display: flex;
     align-items: center;

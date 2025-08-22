@@ -41,7 +41,7 @@ export default function LoginForm(): React.ReactNode {
 
     const handleSubmit = async (formData: typeof form.values) => {
         setBlurEffect(true);
-        const responseData = await sessionAuth({ ...formData, provided_password: CryptoJS.MD5(formData.provided_password).toString() }, true);
+        const responseData = await sessionAuth({ ...formData, provided_password: CryptoJS.MD5(formData.provided_password).toString() });
         notificationApi.open({
             type: responseData.success ? "success" : "error",
             message: responseData.success ? "Login Successful" : "Login Failed",

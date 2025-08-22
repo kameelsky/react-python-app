@@ -1,7 +1,7 @@
 import { createTheme } from "@mantine/core";
 
 const theme = createTheme({
-    primaryColor: "indigo",
+    primaryColor: "cyan",
 });
 
 export default theme;
