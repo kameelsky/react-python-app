@@ -4,7 +4,7 @@ import Button from "@app/lib/components/Button";
 import { ServerResponse } from "@app/lib/data/types";
 import { PUT } from "@app/lib/requests";
 import { printSuccess } from "@app/lib/serverActions/terminal";
-import { Modal, PasswordInput, TextInput } from "@mantine/core";
+import { Modal, PasswordInput, TextInput, Flex, Stack } from "@mantine/core";
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { notification } from "antd";
@@ -80,14 +80,20 @@ export default function RegistrationLink(): React.ReactNode {
             </p>
             <Modal opened={isOpened} onClose={modalHandlers.close} closeOnClickOutside={false} title="Register a new account">
                 <form onSubmit={form.onSubmit(handleSubmit)}>
-                    <TextInput label="Name" withAsterisk key={form.key("user_name")} {...form.getInputProps("user_name")} />
-                    <TextInput label="Surname" withAsterisk key={form.key("user_surname")} {...form.getInputProps("user_surname")} />
-                    <TextInput label="Email" withAsterisk key={form.key("user_email")} {...form.getInputProps("user_email")} leftSection={<Mail />} />
-                    <TextInput label="Login" withAsterisk key={form.key("user_login")} {...form.getInputProps("user_login")} leftSection={<User />} />
-                    <PasswordInput label="Password" withAsterisk key={form.key("user_password")} {...form.getInputProps("user_password")} leftSection={<Lock />} />
-                    <Button color="black" fullWidth className="mt-10" type="submit">
-                        Register
-                    </Button>
+                    <Stack gap="xl">
+                        <Flex gap="md">
+                            <TextInput label="Name" withAsterisk key={form.key("user_name")} {...form.getInputProps("user_name")} />
+                            <TextInput label="Surname" withAsterisk key={form.key("user_surname")} {...form.getInputProps("user_surname")} />
+                        </Flex>
+                        <Stack gap="0.5rem">
+                            <TextInput label="Email" withAsterisk key={form.key("user_email")} {...form.getInputProps("user_email")} leftSection={<Mail />} />
+                            <TextInput label="Login" withAsterisk key={form.key("user_login")} {...form.getInputProps("user_login")} leftSection={<User />} />
+                            <PasswordInput label="Password" withAsterisk key={form.key("user_password")} {...form.getInputProps("user_password")} leftSection={<Lock />} />
+                            <Button color="black" fullWidth className="mt-10" type="submit">
+                                Register
+                            </Button>
+                        </Stack>
+                    </Stack>
                 </form>
             </Modal>
             {notificationContextHolder}
