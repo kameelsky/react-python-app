@@ -1,1 +1,27 @@
 @import "tailwind-preset-mantine";
+
+:root {
+    --background-color1: #748cab9f;
+    --background-color2: #f0ebd8b7;
+    --background-color3: #bee3dbb3;
+    --windows-color: rgba(255, 255, 255, 0.1);
+    --radius: 2rem;
+    --windows-filter: saturate(30%) blur(2em); 
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.mantine-NavLink-root {
+  border-radius: var(--radius);
+  transition: 0.3s
+}
+
+.mantine-NavLink-label {
+  font-size: 1.2em;
+}
+
+.mantine-NavLink-root[data-active="true"] .mantine-NavLink-label {
+  font-size: 1.2em;
+}

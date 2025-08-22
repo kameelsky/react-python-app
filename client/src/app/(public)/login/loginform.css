@@ -1,22 +1,19 @@
-:root {
-    --login-panel-radius: 2rem;
-}
-
 .login-page {
-    height: 100vh;
     width: 100vw;
-    background: whitesmoke;
+    height: 100vh;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center
 }
 
 .login-panel {
     width: 25%;
     height: 60%;
-    background-color: whitesmoke;
-    border-radius: var(--login-panel-radius);
-    box-shadow: 0.9rem 0.9rem 0.9rem rgba(0, 0, 0,  0.1), -0.7rem -0.7rem 0.7rem white;
+    background-color: var(--windows-color);
+    border-radius: var(--radius);
+    border: 0.15rem solid white;
+    box-shadow: 0.9rem 0.9rem 0.9rem rgba(0, 0, 0,  0.2), -0.7rem -0.1rem 1rem rgb(255, 255, 255, 0.5);
+    backdrop-filter: var(--windows-filter)
 }
 
 .login-header {
@@ -25,10 +22,11 @@
     align-items: center;
     justify-content: center;
     height: 20%;
+    background: radial-gradient(30rem 30rem at 50% 50%, black, transparent 90%);
     background-color: #f9f9f9;
-    border-top-left-radius: var(--login-panel-radius);
-    border-top-right-radius: var(--login-panel-radius);
-    border-bottom: solid 0.1rem #e1e1e1;
+    border-top-left-radius: var(--radius);
+    border-top-right-radius: var(--radius);
+    border-bottom: solid 0.1rem white
 }
 
 .login-form {
@@ -45,4 +43,25 @@
     align-items: center;
     justify-content: center;
     height: 10%;
+}
+
+.neon {
+  font-size: 1.5rem;
+  animation: flicker 3s infinite;
+  color: #fff;
+}
+
+@keyframes flicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 0.1em #fff,
+      0 0 0.5em #fff,
+      0 0 1em #0fa,
+      0 0 2em #0fa,
+      0 0 5em #0fa;
+  }
+
+  20%, 22%, 24%, 55% {
+    text-shadow: none;
+  }
 }

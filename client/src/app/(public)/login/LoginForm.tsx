@@ -11,7 +11,7 @@ import { Lock, User } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-export default function LoginForm() {
+export default function LoginForm(): React.ReactNode {
     const [blurEffect, setBlurEffect] = useState<boolean>(false);
     const router = useRouter();
     const searchParams = useSearchParams();

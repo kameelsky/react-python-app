@@ -1,0 +1,22 @@
+.background {
+    background:
+        radial-gradient(40rem 40rem at 20% 20%, var(--background-color1), transparent 80%),
+        radial-gradient(35rem 35rem at 80% 25%, var(--background-color2), transparent 85%),
+        radial-gradient(70rem 20rem at 50% 85%, var(--background-color3), transparent 90%),
+        whitesmoke;        
+}
+
+.window {
+    width: 100%;
+    height: 100%;
+    background-color: var(--windows-color);
+    border-radius: var(--radius);
+    border: 0.15rem solid white;
+    box-shadow: 0.9rem 0.9rem 0.9rem rgba(0, 0, 0,  0.2), -0.7rem -0.1rem 1rem rgb(255, 255, 255, 0.5);
+    backdrop-filter: saturate(100%) blur(0);
+    transition: backdrop-filter 0.5s ease-in-out;
+}
+
+.blurred {
+  backdrop-filter: var(--windows-filter);
+}

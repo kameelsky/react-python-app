@@ -25,7 +25,7 @@ async function request(method: Method, endpoint: string, data: object = {}, conf
             return {
                 success: false,
                 status_code: error.response?.status || 500,
-                message: error.response?.data?.detail || "Server API not responding.",
+                message: error.response?.data?.detail || "API not responding.",
             } as ServerResponse;
         });
     return response;

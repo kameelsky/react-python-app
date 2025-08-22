@@ -6,7 +6,7 @@ import { cookieDuration, logOut, sessionRefresh } from "@app/lib/serverActions/a
 import { notification } from "antd";
 import { useCallback, useEffect, useRef, useState } from "react";
 
-export default function SessionRefresher(): React.ReactNode {
+export default function SessionRefresher(): React.ReactElement {
     const [sessionTime, setSessionTime] = useState<number | null>(null);
     const NOTIFICATION_DURATION = 5 * 60; // notification in seconds before the end of session
     const [refreshCount, setRefreshCount] = useState<number>(0);
