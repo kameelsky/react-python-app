@@ -1,6 +1,7 @@
 "use client";
 
 import SessionRefresher from "@app/lib/components/SessionRefresh";
+import Window from "@app/lib/components/Window";
 import styles from "@app/lib/styles/styles.module.css";
 import { Burger } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
@@ -23,10 +24,14 @@ export default function AuthLayout({ children }: { children: Readonly<React.Reac
                 </div>
                 {isSidebarOpen && (
                     <div className="aside">
-                        <Sidebar />
+                        <Window>
+                            <Sidebar />
+                        </Window>
                     </div>
                 )}
-                <div className="main">{children}</div>
+                <div className="main">
+                    <Window>{children}</Window>
+                </div>
             </div>
         </>
     );
