@@ -5,7 +5,8 @@
     --background-color2: #f0ebd8b7;
     --background-color3: #bee3dbb3;
     --windows-color: rgba(255, 255, 255, 0.1);
-    --windows-filter: saturate(75%) blur(1rem)
+    --windows-filter: saturate(50%) blur(1em); 
+    --login-panel-radius: 2em
 }
 
 * {

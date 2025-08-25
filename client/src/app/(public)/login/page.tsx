@@ -9,10 +9,10 @@ import RegistrationLink from "./RegistrationLink";
 export default function LoginPage(): React.ReactNode {
     return (
         <div className={`login-page ${styles.background}`}>
-            <main className="login-panel">
-                <header className="login-header">
+            <div className="login-panel">
+                <div className="login-header">
                     <h1 className="text-[1.5rem] font-bold neon">My App</h1>
-                </header>
+                </div>
 
                 <Stack justify="center" className="login-form">
                     <Suspense>
@@ -23,7 +23,7 @@ export default function LoginPage(): React.ReactNode {
                 <footer className="login-footer">
                     <RegistrationLink />
                 </footer>
-            </main>
+            </div>
         </div>
     );
 }
