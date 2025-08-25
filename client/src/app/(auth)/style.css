@@ -1,0 +1,21 @@
+.grid {
+    display: grid;
+    grid-template-rows: 7% 1fr;
+    grid-template-columns: 20% 1fr;
+    grid-template-areas: 
+        "header header"
+        "sidebar main";
+    height: 100vh;
+}
+
+header {
+    grid-area: header;
+}
+
+aside {
+    grid-area: sidebar;
+}
+
+main {
+    grid-area: main;
+}

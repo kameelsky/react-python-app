@@ -2,7 +2,7 @@
 
 import { Button as MantineButton, ButtonProps as MantineButtonProps } from "@mantine/core";
 import { ButtonHTMLAttributes, MouseEvent, useRef } from "react";
-import styles from "./Effects.module.css";
+import effects from "@app/lib/styles/effects.module.css";
 
 type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> &
     MantineButtonProps & {
@@ -23,7 +23,7 @@ export default function Button({ children, ripple = true, onClick, ...otherProps
             button.style.overflow = "hidden";
 
             const rippleSpan = document.createElement("span");
-            rippleSpan.className = styles.ripple;
+            rippleSpan.className = effects.ripple;
             rippleSpan.style.left = `${x}px`;
             rippleSpan.style.top = `${y}px`;
             button.appendChild(rippleSpan);

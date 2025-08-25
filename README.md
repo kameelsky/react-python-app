@@ -83,7 +83,7 @@ The application must have a connection to MySQL database server. Database is con
 docker pull mysql/mysql-server
 
 # Builing the container
-docker run --name mysql -e MYSQL_ROOT_PASSWORD=rootpasswd -p 3306:3306 -v mysql_dane:/var/lib/mysql -d mysql/mysql-server:latest
+docker run --name mysql --restart always -m 4g -e MYSQL_ROOT_PASSWORD=rootpasswd -p 3306:3306 -v mysql_dane:/var/lib/mysql -d mysql/mysql-server:latest
 
 # Preferrably add a user and grant the access to the database.
 docker exec -it mysql /bin/bash

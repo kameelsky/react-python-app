@@ -1,5 +1,5 @@
 import { RingLoader } from "react-spinners";
-import styles from "./Effects.module.css";
+import effects from "@app/lib/styles/effects.module.css";
 
 type LayoutOverlayProps = {
     children: React.ReactNode;
@@ -13,7 +13,7 @@ export default function LayoutOverlay({ children, visible = false, size = 50, co
         <div className="relative">
             {children}
             {visible && (
-                <div className={styles.overlay}>
+                <div className={effects.overlay}>
                     <RingLoader color={color} size={size} />
                 </div>
             )}
