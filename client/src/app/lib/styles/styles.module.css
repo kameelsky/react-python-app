@@ -3,7 +3,7 @@
         radial-gradient(40rem 40rem at 20% 20%, var(--background-color1), transparent 80%),
         radial-gradient(35rem 35rem at 80% 25%, var(--background-color2), transparent 85%),
         radial-gradient(70rem 20rem at 50% 85%, var(--background-color3), transparent 90%),
-        whitesmoke;
+        whitesmoke;        
 }
 
 .window {

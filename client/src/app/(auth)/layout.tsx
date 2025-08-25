@@ -9,6 +9,7 @@ import clsx from "clsx";
 import React from "react";
 import Sidebar from "./Sidebar";
 import "./style.css";
+import Image from "next/image";
 
 export default function AuthLayout({ children }: { children: Readonly<React.ReactNode> }): React.ReactNode {
     const [isSidebarOpen, sidebarHandlers] = useDisclosure(true);
@@ -16,6 +17,7 @@ export default function AuthLayout({ children }: { children: Readonly<React.Reac
         <>
             <SessionRefresher />
             <div className={clsx(styles.background, "gridContainer", isSidebarOpen ? "" : "sidebarHidden")}>
+                <Image src="/favicon.ico" alt="background" className="backgroundIcon" width={10} height={10} />
                 <div className="header">
                     <div className="island">
                         <Burger opened={isSidebarOpen} onClick={sidebarHandlers.toggle} color="white" />
