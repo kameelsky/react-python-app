@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { decryptJWT } from "@app/lib/serverActions/encryption";
 
 const nextPaths: string[] = ["/_next", "/favicon.ico"];
-const publicRoutes: string[] = ["/home", "/unauthorized"];
+const publicRoutes: string[] = ["/home", "/unauthorized", "/cloud"];
 const accessMap: Record<string, string[]> = {
     admin: ["*"],
     user: [...publicRoutes],
