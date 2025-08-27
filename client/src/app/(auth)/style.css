@@ -1,11 +1,12 @@
 .gridContainer {
+    position: relative;
+    min-height: 150vh;
     display: grid;
     grid-template-rows: 4em auto;
-    grid-template-columns: 15% auto;
+    grid-template-columns: 20% auto;
     grid-template-areas: 
         "header header"
         "sidebar main";
-    min-height: 100vh;
     transition: grid-template-columns 0.2s ease-out;
 }
 
@@ -22,17 +23,19 @@
 }
 
 .island {
+    position: fixed;
+    z-index: 1;
     color: white;
     display: flex;
     background-color: black;
-    min-width: 80%;
+    min-width: 60%;
     min-height: 3em;
-    border-radius: 2em;
+    border-radius: var(--radius);
     padding-left: 1em;
     padding-right: 1em;
     justify-content: space-between;
     align-items: center;
-    transition: transform 0.1s;
+    transition: transform 0.5s;
 }
 
 .island:hover {
@@ -40,22 +43,42 @@
     transform: scale(1.01);
 }
 
+.island.hide{
+    transition: transform 0.5s; 
+    transform: scale(0.2);
+}
+
+.island.hide > * {
+    display: none;
+}
+
+.island.hide:hover {
+    transition: transform 0.5s;
+    transform: scale(1);
+}
+
+.island.hide:hover > * {
+    display: flex;
+}
+
 .aside {
     grid-area: sidebar;
-    padding: 0 0.5rem;
-    padding-bottom: 1rem;
+    position: relative;
 }
 
 .main {
     grid-area: main;
+}
+
+.aside, .main {
     padding: 0 0.5rem;
     padding-bottom: 1rem;
 }
 
 .backgroundIcon {
     position: absolute;
-    top: 80%;
-    left: 90%;
+    top: 20em;
+    right: 0;
     transform: translate(-50%, -50%);
     width: 15em;
     height: 15em;

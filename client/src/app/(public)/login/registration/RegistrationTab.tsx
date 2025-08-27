@@ -4,12 +4,11 @@ import Button from "@app/lib/components/Button";
 import { ServerResponse } from "@app/lib/data/types";
 import { PUT } from "@app/lib/requests";
 import { printSuccess } from "@app/lib/serverActions/terminal";
-import { Modal, PasswordInput, TextInput, Flex, Stack } from "@mantine/core";
+import { Flex, PasswordInput, Stack, TextInput } from "@mantine/core";
 import { useForm } from "@mantine/form";
-import { useDisclosure } from "@mantine/hooks";
 import { notification } from "antd";
 import CryptoJS from "crypto-js";
-import { Lock, Mail, User } from "lucide-react";
+import { Lock, LockKeyhole, Mail, User } from "lucide-react";
 
 interface RegisterData {
     user_name: string;
@@ -29,18 +28,24 @@ interface RegisteredUserResponseBody {
     };
 }
 
-export default function RegistrationLink(): React.ReactNode {
-    const [isOpened, modalHandlers] = useDisclosure(false);
+interface UseDisclosureHandlers {
+    open: () => void;
+    close: () => void;
+    toggle: () => void;
+}
+
+export default function RegistrationTab({ modalHandlers }: { modalHandlers: UseDisclosureHandlers }): React.ReactNode {
     const [notificationApi, notificationContextHolder] = notification.useNotification();
 
     const form = useForm({
         mode: "controlled",
         initialValues: {
-            user_name: "John",
-            user_surname: "Smith",
-            user_email: "john.smith@domain.com",
-            user_login: "j.smith",
-            user_password: "pass1$",
+            user_name: "",
+            user_surname: "",
+            user_email: "",
+            user_login: "",
+            user_password: "",
+            confirm_password: "",
         },
         validate: {
             user_name: (value) => (value.length === 0 ? "Name is required" : null),
@@ -51,20 +56,23 @@ export default function RegistrationLink(): React.ReactNode {
                 if (!/[!@#$%^&*(),.?":{}|<>]/.test(value) || !/[0-9]/.test(value)) {
                     return "Password must include at least one special character '[!@#$%^&*(),.?\":{}|<>]' and number";
                 }
+                return null;
             },
+            confirm_password: (value, values) => (value !== values.user_password ? "Passwords do not match" : null),
         },
     });
 
     const handleSubmit = async (formData: typeof form.values) => {
-        const userData: RegisterData = { ...formData, user_password: CryptoJS.MD5(formData.user_password).toString() };
+        const { confirm_password, ...rest } = formData; // exclude confirm_password
+        const userData: RegisterData = { ...rest, user_password: CryptoJS.MD5(rest.user_password).toString() };
+
         const responseData = (await PUT("/auth/register", userData)) as ServerResponse<RegisteredUserResponseBody>;
         notificationApi.open({
             type: responseData.success ? "success" : "error",
             message: responseData.success ? "Registration completed!" : "Registration failed.",
             description: responseData.success ? "You have succesfully registered your account." : `${responseData.message}`,
             placement: "bottom",
-            // duration: responseData.success ? 2 : 5,
-            duration: responseData.success ? 0.5 : 5,
+            duration: responseData.success ? 2 : 5,
             onClose: responseData.success ? modalHandlers.close : undefined,
         });
         if (responseData.success) {
@@ -75,27 +83,23 @@ export default function RegistrationLink(): React.ReactNode {
 
     return (
         <>
-            <p onClick={modalHandlers.open} className="hover:text-cyan-700 underline cursor-pointer">
-                Create an account
-            </p>
-            <Modal opened={isOpened} onClose={modalHandlers.close} closeOnClickOutside={false} title="Register a new account">
-                <form onSubmit={form.onSubmit(handleSubmit)}>
-                    <Stack gap="xl">
-                        <Flex gap="md">
-                            <TextInput label="Name" withAsterisk key={form.key("user_name")} {...form.getInputProps("user_name")} />
-                            <TextInput label="Surname" withAsterisk key={form.key("user_surname")} {...form.getInputProps("user_surname")} />
-                        </Flex>
-                        <Stack gap="0.5rem">
-                            <TextInput label="Email" withAsterisk key={form.key("user_email")} {...form.getInputProps("user_email")} leftSection={<Mail />} />
-                            <TextInput label="Login" withAsterisk key={form.key("user_login")} {...form.getInputProps("user_login")} leftSection={<User />} />
-                            <PasswordInput label="Password" withAsterisk key={form.key("user_password")} {...form.getInputProps("user_password")} leftSection={<Lock />} />
-                            <Button color="black" fullWidth className="mt-10" type="submit">
-                                Register
-                            </Button>
-                        </Stack>
+            <form onSubmit={form.onSubmit(handleSubmit)}>
+                <Stack gap="xl">
+                    <Flex gap="md">
+                        <TextInput label="Name" withAsterisk key={form.key("user_name")} {...form.getInputProps("user_name")} />
+                        <TextInput label="Surname" withAsterisk key={form.key("user_surname")} {...form.getInputProps("user_surname")} />
+                    </Flex>
+                    <Stack gap="0.5rem">
+                        <TextInput label="Email" withAsterisk key={form.key("user_email")} {...form.getInputProps("user_email")} leftSection={<Mail />} />
+                        <TextInput label="Login" withAsterisk key={form.key("user_login")} {...form.getInputProps("user_login")} leftSection={<User />} />
+                        <PasswordInput label="Password" withAsterisk key={form.key("user_password")} {...form.getInputProps("user_password")} leftSection={<Lock />} />
+                        <PasswordInput label="Confirm Password" withAsterisk key={form.key("confirm_password")} {...form.getInputProps("confirm_password")} leftSection={<LockKeyhole />} />
+                        <Button color="black" fullWidth className="mt-10" type="submit">
+                            Register
+                        </Button>
                     </Stack>
-                </form>
-            </Modal>
+                </Stack>
+            </form>
             {notificationContextHolder}
         </>
     );

@@ -1,26 +1,16 @@
 "use client";
 
+import Island from "@app/lib/components/Island";
 import SessionRefresher from "@app/lib/components/SessionRefresh";
+import Sidebar from "@app/lib/components/Sidebar";
 import Window from "@app/lib/components/Window";
+import { DashboardContext } from "@app/lib/context/DashboardContext";
 import styles from "@app/lib/styles/styles.module.css";
 import { useDisclosure } from "@mantine/hooks";
 import clsx from "clsx";
 import Image from "next/image";
-import React, { createContext, useEffect, useState } from "react";
-import Island from "./Island";
-import Sidebar from "./Sidebar";
+import { useEffect, useState } from "react";
 import "./style.css";
-
-type DashboardContextType = {
-    isSidebarOpen: boolean;
-    sidebarHandlers: {
-        open: () => void;
-        close: () => void;
-        toggle: () => void;
-    };
-};
-
-export const DashboardContext = createContext<DashboardContextType>({} as DashboardContextType);
 
 export default function AuthLayout({ children }: { children: Readonly<React.ReactNode> }): React.ReactNode {
     const [isSidebarOpen, sidebarHandlers] = useDisclosure(true);
@@ -34,7 +24,7 @@ export default function AuthLayout({ children }: { children: Readonly<React.Reac
     return (
         <>
             <SessionRefresher />
-            <div className={clsx(styles.background, "gridContainer", isSidebarOpen ? "" : "sidebarHidden")}>
+            <div className={clsx(styles.background, "gridContainer", isSidebarOpen || "sidebarHidden")}>
                 <Image src="/favicon.ico" alt="background" className="backgroundIcon" width={0} height={1} />
                 <DashboardContext.Provider value={{ isSidebarOpen, sidebarHandlers }}>
                     <div className="header">
@@ -43,13 +33,13 @@ export default function AuthLayout({ children }: { children: Readonly<React.Reac
                 </DashboardContext.Provider>
                 {isSidebarOpen && (
                     <div className="aside">
-                        <Window className={isBlurred ? `${styles.blurred}` : ""}>
+                        <Window className={clsx("sticky top-10 min-h-1/5", isBlurred && styles.blurred)}>
                             <Sidebar />
                         </Window>
                     </div>
                 )}
                 <div className="main">
-                    <Window className={isBlurred ? `${styles.blurred}` : ""}>{children}</Window>
+                    <Window className={clsx("h-full w-full", isBlurred && styles.blurred)}>{children}</Window>
                 </div>
             </div>
         </>

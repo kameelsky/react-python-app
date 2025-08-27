@@ -21,10 +21,9 @@ export default function LoginForm(): React.ReactNode {
     const form = useForm({
         mode: "controlled",
         initialValues: {
-            user_login: "j.smith",
-            provided_password: "pass1$",
+            user_login: "",
+            provided_password: "",
         },
-
         validate: {
             user_login: (value) => (value.length === 0 ? "Provide your login." : null),
             provided_password: (value) => (value.length === 0 ? "Provide your password." : null),

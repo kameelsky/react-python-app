@@ -7,8 +7,6 @@
 }
 
 .window {
-    width: 100%;
-    height: 100%;
     background-color: var(--windows-color);
     border-radius: var(--radius);
     border: 0.15rem solid white;
