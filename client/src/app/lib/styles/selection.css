@@ -1,0 +1,40 @@
+.selection-container {
+  position: relative;
+  display: grid;
+  gap: 1em;
+  padding: 1em;
+  background-color: whitesmoke;
+  border-radius: 1em;
+  box-shadow: 0 1em 2em rgba(0,0,0,0.1);
+  user-select: none;
+}
+
+.grid-item {
+  width: 4em;
+  height: 4em;
+  display: flex; 
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1em;
+  font-weight: 700; 
+  border: 0.1em solid #d1d5db;
+  border-radius: 2em;
+  background-color: #e5e7eb;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.grid-item.disabled {
+    background-color: #444;
+    color: lightgray;  
+}
+
+.grid-item.selected {
+  background-color: rgb(26, 137, 137);
+  color: white;
+}
+
+.selection-rect {
+  position: absolute;
+  border: 0.2em solid rgb(26, 137, 137);
+  background-color: rgba(45, 212, 191, 0.3);
+}

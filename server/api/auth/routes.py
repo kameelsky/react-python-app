@@ -1,6 +1,7 @@
-from api.auth.models import AuthRequest, AuthResponse, RegisterRequest
-from data import ENGINE, ReactApp, Users, check_access, AuthorizationError
-from fastapi import APIRouter, Body, HTTPException, Query, status
+from data import ENGINE, AuthorizationError, ReactApp, Users, check_access
+from fastapi import APIRouter, Body, Depends, HTTPException, Query, status
+from functions.encryption import authentication
+from models.api_models import JWT, AuthRequest, AuthResponse, RegisterRequest
 from sqlalchemy.exc import IntegrityError, OperationalError
 from sqlmodel import Session
 
@@ -37,3 +38,7 @@ def register_new_user(body: RegisterRequest = Body()):
             return {"user": new_user.info()}
     except IntegrityError: raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="A resource conflict occurred. Login or Email already exists in the database.")
     except OperationalError: raise HTTPException(status_code=status.HTTP_503_SERVICE_UNAVAILABLE, detail="No database found. Contact IT support.")
+
+@router.get("/test", response_model=JWT)
+def test(token = Depends(authentication)):
+    return token

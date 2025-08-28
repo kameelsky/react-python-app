@@ -1,6 +1,7 @@
 "use client";
 
 import Island from "@app/lib/components/Island";
+import ScrollToTop from "@app/lib/components/Scroll";
 import SessionRefresher from "@app/lib/components/SessionRefresh";
 import Sidebar from "@app/lib/components/Sidebar";
 import Window from "@app/lib/components/Window";
@@ -23,8 +24,9 @@ export default function AuthLayout({ children }: { children: Readonly<React.Reac
 
     return (
         <>
+            <ScrollToTop />
             <SessionRefresher />
-            <div className={clsx(styles.background, "gridContainer", isSidebarOpen || "sidebarHidden")}>
+            <div className={clsx(styles.background, "gridContainer", isSidebarOpen || "sidebarHidden")} style={{ ["--sidebar-width" as string]: "20%" }}>
                 <Image src="/favicon.ico" alt="background" className="backgroundIcon" width={0} height={1} />
                 <DashboardContext.Provider value={{ isSidebarOpen, sidebarHandlers }}>
                     <div className="header">
@@ -33,7 +35,7 @@ export default function AuthLayout({ children }: { children: Readonly<React.Reac
                 </DashboardContext.Provider>
                 {isSidebarOpen && (
                     <div className="aside">
-                        <Window className={clsx("sticky top-10 min-h-1/5", isBlurred && styles.blurred)}>
+                        <Window className={clsx("sticky top-10 min-h-50", isBlurred && styles.blurred)}>
                             <Sidebar />
                         </Window>
                     </div>

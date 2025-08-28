@@ -3,7 +3,7 @@
     min-height: 150vh;
     display: grid;
     grid-template-rows: 4em auto;
-    grid-template-columns: 20% auto;
+    grid-template-columns: var(--sidebar-width) auto;
     grid-template-areas: 
         "header header"
         "sidebar main";

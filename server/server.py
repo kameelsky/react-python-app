@@ -3,6 +3,7 @@ import os
 import uvicorn
 from api.auth.routes import router as auth_router
 from api.tools.routes import router as tools_router
+from api.admin.routes import router as admin_router
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,6 +30,7 @@ app = FastAPI(title="REST API", version="1.0.0", root_path="/api", docs_url="/do
 app.add_middleware(CORSMiddleware, allow_origins=origins, allow_credentials=True, allow_methods=["*"], allow_headers=["*"])
 app.include_router(auth_router, prefix="/auth", tags=["authentication"], include_in_schema=False)
 app.include_router(tools_router, prefix="/tools", tags=["tools"], include_in_schema=False)
+app.include_router(admin_router, prefix="/admin", tags=["admin"], include_in_schema=True)
 
 @app.get("/")
 def home_page():

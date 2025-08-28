@@ -11,7 +11,7 @@ export default function Sidebar(): React.ReactNode {
     return (
         <div className="flex flex-col items-center justify-up p-3 w-full h-auto">
             <NavLink href="/home" label="Home" leftSection={<HomeTwoTone {...antdIconProps} />} active={"/home" === pathname} />
-            <NavLink href="/cloud" label="Cloud" leftSection={<CloudTwoTone {...antdIconProps} />} active={"/cloud" === pathname} />
+            <NavLink href="/selection" label="Selection" leftSection={<CloudTwoTone {...antdIconProps} />} active={"/selection" === pathname} />
         </div>
     );
 }

@@ -15,13 +15,14 @@ def decryptJWT(token: str) -> Optional[dict]:
     except jwt.exceptions.DecodeError: raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Decoding error")
     except jwt.exceptions.ExpiredSignatureError: raise HTTPException(status_code=status.HTTP_401_UNAUTHORIZED, detail="Token has expired")
 
-def encryptJWT(name: str, role: str, login: str) -> str:
+def encryptJWT(ID: int, name: str, role: str, login: str, minutes: int) -> str:
     payload = {
+        "ID": ID,
         "name": name,
         "role": role,
         "login": login,
         "iat": int(datetime.now().timestamp()),
-        "exp": int((datetime.now() + timedelta(minutes=30)).timestamp())
+        "exp": int((datetime.now() + timedelta(minutes=minutes)).timestamp())
     }
     headers = {"alg": ALGORITHM}
     return jwt.encode(payload, SECRET_KEY, algorithm=ALGORITHM, headers=headers)
